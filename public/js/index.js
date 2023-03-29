@@ -2144,12 +2144,12 @@ var render = function render() {
       attrs: {
         "href": "#"
       }
-    }, [_vm._v(_vm._s(product.product_price) + " $")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Price : " + _vm._s(product.product_price) + " $")]), _vm._v(" "), _c('a', {
       staticClass: "card-link text-primary",
       attrs: {
         "href": "#"
       }
-    }, [_vm._v(_vm._s(product.category.category_name))])])])]);
+    }, [_vm._v("Category : " + _vm._s(product.category.category_name))])])])]);
   }), 0)]);
 };
 var staticRenderFns = [];

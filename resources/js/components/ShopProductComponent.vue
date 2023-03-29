@@ -6,10 +6,12 @@
           <div class="card-body">
             <h5 class="card-title">{{ product.product_name }}</h5>
             <p class="card-text"></p>
-            <a href="#" class="card-link">{{ product.product_price }} $</a>
-            <a href="#" class="card-link text-primary">{{
-              product.category.category_name
-            }}</a>
+            <a href="#" class="card-link"
+              >Price : {{ product.product_price }} $</a
+            >
+            <a href="#" class="card-link text-primary"
+              >Category : {{ product.category.category_name }}</a
+            >
           </div>
         </div>
       </div>
