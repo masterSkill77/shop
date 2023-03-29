@@ -19,3 +19,11 @@ Run :
 # How to launch the server
 
 Run `php artisan serve`
+
+# Credentials
+
+Admin email : admin@gmail.com
+Admin password : admin
+
+Moderator email : moderator@gmail.com
+Moderator password : moderator
