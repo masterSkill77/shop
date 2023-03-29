@@ -14,7 +14,7 @@ class CategoryModelFactory extends Factory
     public function definition()
     {
         return [
-            "category_name" => $this->faker->text(50)
+            "category_name" => $this->faker->word()
         ];
     }
 }
