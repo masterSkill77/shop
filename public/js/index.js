@@ -2125,29 +2125,29 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_c('div', {
+  return _c("div", [_c("div", {
     staticClass: "row"
   }, _vm._l(_vm.productList, function (product) {
-    return _c('div', {
+    return _c("div", {
       key: product.id,
       staticClass: "col-sm-4"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "card"
-    }, [_c('div', {
+    }, [_c("div", {
       staticClass: "card-body"
-    }, [_c('h5', {
+    }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(product.product_name))]), _vm._v(" "), _c('p', {
+    }, [_vm._v(_vm._s(product.product_name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }), _vm._v(" "), _c('a', {
+    }), _vm._v(" "), _c("a", {
       staticClass: "card-link",
       attrs: {
-        "href": "#"
+        href: "#"
       }
-    }, [_vm._v("Price : " + _vm._s(product.product_price) + " $")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("Price : " + _vm._s(product.product_price) + " $")]), _vm._v(" "), _c("a", {
       staticClass: "card-link text-primary",
       attrs: {
-        "href": "#"
+        href: "#"
       }
     }, [_vm._v("Category : " + _vm._s(product.category.category_name))])])])]);
   }), 0)]);
