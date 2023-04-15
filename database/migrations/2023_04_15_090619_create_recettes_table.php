@@ -16,6 +16,7 @@ class CreateRecettesTable extends Migration
         Schema::create('recettes', function (Blueprint $table) {
             $table->id();
             $table->float('quantity');
+            $table->string('unite');
 
             $table->unsignedBigInteger('menu_id');
             $table->foreign('menu_id')->references('id')->on('menus');

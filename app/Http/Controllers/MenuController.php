@@ -12,4 +12,8 @@ class MenuController extends Controller
     {
         return response()->json(Menu::with(['products', 'user'])->get());
     }
+    public function show(int $id)
+    {
+        return response()->json(Menu::where('id', $id)->with(['products', 'user'])->first());
+    }
 }

@@ -38,7 +38,7 @@
             @endif
 
             <div class="container" id="app">
-                <shop-component />
+                <accueil-component />
             </div>
         </div>
     </body>

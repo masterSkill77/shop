@@ -14,7 +14,7 @@ class Menu extends Model
 
     public function products()
     {
-        return $this->belongsToMany(ProductModel::class, 'recettes', 'menu_id', 'product_id')->withPivot('quantity');
+        return $this->belongsToMany(ProductModel::class, 'recettes', 'menu_id', 'product_id')->withPivot(['quantity', 'unite']);
     }
     public function user()
     {

@@ -20,16 +20,20 @@ window.Vue = require("vue").default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component(
-  "shop-component",
-  require("./components/ShopProductComponent.vue").default
+  "accueil-component",
+  require("./components/AccueilComponent.vue").default
 );
 
+import VueRouter from "vue-router";
+import router from "./router";
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.use(VueRouter);
 
 const app = new Vue({
   el: "#app",
+  router,
 });
