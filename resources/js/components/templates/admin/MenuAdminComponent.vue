@@ -1,64 +1,45 @@
 <template>
   <div>
-    <div class="input-group mb-3">
-      <select
-        v-model="id_category"
-        class="custom-select"
-        id="inputGroupSelect02"
-      >
-        <option
-          :key="category.id"
-          v-for="category in categoriesList"
-          :value="category.id"
-        >
-          {{ category.category_name }}
-        </option>
-      </select>
-      <div
-        class="input-group-append cursor-pointer"
-        @click="filterByCategory(id_category)"
-      >
-        <label class="input-group-text" for="inputGroupSelect02"
-          >Filtrer par catégorie</label
-        >
-      </div>
-    </div>
     <input
       type="text"
       v-model="queryText"
-      @input="queryProduct"
+      @input="querymenu"
       class="w-100 form-control mb-2"
-      placeholder="Rechercher un produit"
+      placeholder="Rechercher un menu"
     />
     <button
       class="btn btn-sm btn-success mb-2"
       data-toggle="modal"
-      data-target="#createProductModal"
+      data-target="#createmenuModal"
       v-if="isAdmin"
     >
-      Créer un produit
+      Créer un menu
     </button>
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>ID produit</th>
+          <th>ID menu</th>
           <th>Nom</th>
-          <th>Prix</th>
-          <th>Catégorie</th>
+          <th>Ingrédients</th>
           <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        <tr :key="product.id" v-for="product in productList">
-          <td>{{ product.id }}</td>
-          <td>{{ product.product_name }}</td>
-          <td>{{ product.product_price }}</td>
-          <td>{{ product.category.category_name }}</td>
+        <tr :key="menu.id" v-for="menu in menuList">
+          <td>{{ menu.id }}</td>
+          <td>{{ menu.menu_name }}</td>
+          <td>
+            <ul>
+              <li :key="products.id" v-for="products in menu.products">
+                {{ products.product_name }}
+              </li>
+            </ul>
+          </td>
           <td>
             <button
               class="btn btn-sm btn-warning"
               data-toggle="modal"
-              @click="showFormUpdateProduct(product)"
+              @click="showFormUpdatemenu(menu)"
               type="button"
               data-target="#updateModal"
             >
@@ -67,7 +48,7 @@
             <button
               v-if="isAdmin"
               class="btn btn-sm btn-danger"
-              @click="deleteProduct(product)"
+              @click="deletemenu(menu)"
               data-toggle="modal"
               type="button"
               data-target="#updateModal"
@@ -78,7 +59,7 @@
         </tr>
       </tbody>
     </table>
-    <div>Il y a {{ productList.length }} produit(s)</div>
+    <div>Il y a {{ menuList.length }} menu(s)</div>
     <div
       class="modal fade"
       id="updateModal"
@@ -102,24 +83,14 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="product-name">Nom du produit</label>
+              <label for="menu-name">Nom du menu</label>
               <input
                 type="text"
-                v-model="product.product_name"
+                v-model="menu.menu_name"
                 class="form-control"
-                id="product-name"
+                id="menu-name"
                 aria-describedby=""
-                placeholder="Produit"
-              />
-            </div>
-            <div class="form-group">
-              <label for="product-price">Prix</label>
-              <input
-                type="text"
-                class="form-control"
-                id="product-price"
-                placeholder="Prix"
-                v-model="product.product_price"
+                placeholder="menu"
               />
             </div>
           </div>
@@ -145,7 +116,7 @@
     </div>
     <div
       class="modal fade"
-      id="createProductModal"
+      id="createmenuModal"
       tabindex="-1"
       role="dialog"
       aria-labelledby="createModalTitle"
@@ -155,7 +126,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="createModalTitle">
-              Créer un nouveau produit
+              Créer un nouveau menu
             </h5>
             <button
               type="button"
@@ -168,45 +139,15 @@
           </div>
           <div class="modal-body">
             <div class="form-group">
-              <label for="product-name">Nom du produit</label>
+              <label for="menu-name">Nom du menu</label>
               <input
                 type="text"
-                v-model="newProduct.product_name"
+                v-model="newMenu.menu_name"
                 class="form-control"
-                id="product-name"
+                id="menu-name"
                 aria-describedby=""
-                placeholder="Produit"
+                placeholder="menu"
               />
-            </div>
-            <div class="form-group">
-              <label for="product-price">Prix</label>
-              <input
-                type="text"
-                class="form-control"
-                id="product-price"
-                placeholder="Prix"
-                v-model="newProduct.product_price"
-              />
-            </div>
-            <div class="input-group mb-3">
-              <select
-                v-model="newProduct.id_category"
-                class="custom-select"
-                id="inputGroupSelect02"
-              >
-                <option
-                  :key="category.id"
-                  v-for="category in categoriesList"
-                  :value="category.id"
-                >
-                  {{ category.category_name }}
-                </option>
-              </select>
-              <div class="input-group-append">
-                <label class="input-group-text" for="inputGroupSelect02"
-                  >Caterogie</label
-                >
-              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -221,7 +162,7 @@
               type="button"
               class="btn btn-primary"
               data-dismiss="modal"
-              @click="createProduct"
+              @click="createmenu"
             >
               Sauvegarder
             </button>
@@ -237,11 +178,11 @@ import axios from "axios";
 export default {
   data() {
     return {
-      product: {},
-      newProduct: {},
+      menu: {},
+      newMenu: {},
       id_category: "",
       apiUrl: "/api/",
-      productList: [],
+      menuList: [],
       categoriesList: [],
       queryText: "",
       isAdmin: false,
@@ -250,53 +191,46 @@ export default {
   methods: {
     filterByCategory(id_category) {
       this.fetchData().then((data) => {
-        let productListFiltered = this.productList.filter((product) => {
-          if (product.id_category == id_category) return product;
+        let menuListFiltered = this.menuList.filter((menu) => {
+          if (menu.id_category == id_category) return menu;
         });
-        this.productList = productListFiltered;
+        this.menuList = menuListFiltered;
       });
     },
-    queryProduct() {
+    querymenu() {
       if (this.queryText == "") {
         this.fetchData();
       } else {
         this.fetchData().then((data) => {
-          this.productList = this.productList.filter((product) => {
-            if (
-              product.product_name.indexOf(this.queryText) != -1 ||
-              product.product_price == this.queryText ||
-              product.category.category_name.indexOf(this.queryText) != -1
-            )
-              return product;
+          this.menuList = this.menuList.filter((menu) => {
+            if (menu.menu_name.indexOf(this.queryText) != -1) return menu;
           });
         });
       }
     },
-    createProduct() {
+    createmenu() {
       axios
-        .post(this.apiUrl + "product", this.newProduct)
+        .post(this.apiUrl + "menu", this.newMenu)
         .then(({ data }) => this.fetchData());
     },
-    showFormUpdateProduct(product) {
-      this.product = product;
+    showFormUpdatemenu(menu) {
+      this.menu = menu;
     },
     saveModification() {
       axios
-        .patch(this.apiUrl + "product/" + this.product.id, this.product)
+        .patch(this.apiUrl + "menu/" + this.menu.id, this.menu)
         .then((data) => {
           if (data) {
-            alert("Produit modifié avec succès");
+            alert("menu modifié avec succès");
             this.fetchData();
           }
         });
     },
-    deleteProduct(product) {
-      if (
-        confirm("Voulez-vous vraiment supprimer le produit n " + product.id)
-      ) {
-        axios.delete(this.apiUrl + "product/" + product.id).then(({ data }) => {
+    deletemenu(menu) {
+      if (confirm("Voulez-vous vraiment supprimer le menu n " + menu.id)) {
+        axios.delete(this.apiUrl + "menu/" + menu.id).then(({ data }) => {
           if (data.status == 1) {
-            alert("Produit supprimé avec succès");
+            alert("menu supprimé avec succès");
             this.fetchData();
           }
         });
@@ -304,12 +238,9 @@ export default {
     },
     async fetchData() {
       await axios
-        .get(this.apiUrl + "category/")
-        .then(({ data }) => (this.categoriesList = data.data));
-      await axios
-        .get(this.apiUrl + "product/")
-        .then(({ data }) => (this.productList = data.data));
-      this.product = {};
+        .get(this.apiUrl + "menu/")
+        .then(({ data }) => (this.menuList = data));
+      this.menu = {};
     },
   },
   mounted() {
