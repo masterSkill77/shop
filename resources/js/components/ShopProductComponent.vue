@@ -6,7 +6,12 @@
         v-for="menu in menuList"
         :key="menu.id"
       >
-        <div class="card">
+        <div class="card" style="width: 25rem">
+          <img
+            class="card-img-top"
+            src="https://media.gettyimages.com/id/184355725/fr/photo/pain.jpg?s=612x612&w=0&k=20&c=UovfMuolBw-a-ruIeb6WdCRKxSprZI6ZPTjOBYHvG-w="
+            alt="Card image cap"
+          />
           <div class="card-body">
             <h5 class="card-title">{{ menu.menu_name }}</h5>
             <p class="card-text"></p>

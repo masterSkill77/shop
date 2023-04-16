@@ -2186,7 +2186,16 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("router-view");
+  return _c("div", [_c("ul", {
+    staticClass: "nav"
+  }, [_c("li", {
+    staticClass: "nav-item"
+  }, [_c("router-link", {
+    staticClass: "nav-link active",
+    attrs: {
+      to: "/"
+    }
+  }, [_vm._v("Menus")])], 1)]), _vm._v(" "), _c("router-view")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2216,8 +2225,17 @@ var render = function render() {
       key: menu.id,
       staticClass: "col-sm-4 m-1 border-1"
     }, [_c("div", {
-      staticClass: "card"
-    }, [_c("div", {
+      staticClass: "card",
+      staticStyle: {
+        width: "25rem"
+      }
+    }, [_c("img", {
+      staticClass: "card-img-top",
+      attrs: {
+        src: "https://media.gettyimages.com/id/184355725/fr/photo/pain.jpg?s=612x612&w=0&k=20&c=UovfMuolBw-a-ruIeb6WdCRKxSprZI6ZPTjOBYHvG-w=",
+        alt: "Card image cap"
+      }
+    }), _vm._v(" "), _c("div", {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
@@ -2282,16 +2300,11 @@ var staticRenderFns = [function () {
   return _c("div", {
     staticClass: "card-body"
   }, [_c("a", {
-    staticClass: "card-link",
+    staticClass: "btn btn-success card-link",
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Card link")]), _vm._v(" "), _c("a", {
-    staticClass: "card-link",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("Another link")])]);
+  }, [_vm._v("Commander")])]);
 }];
 render._withStripped = true;
 
