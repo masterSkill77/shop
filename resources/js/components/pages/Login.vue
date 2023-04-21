@@ -41,6 +41,7 @@ export default {
         })
         .then(({ data }) => {
           this.$emit("connected", data);
+          this.$router.back(0);
           localStorage.setItem("shop_token", JSON.stringify(data));
         })
         .catch(() => {

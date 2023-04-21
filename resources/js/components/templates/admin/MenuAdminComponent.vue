@@ -30,8 +30,11 @@
           <td>{{ menu.menu_name }}</td>
           <td>
             <ul>
-              <li :key="products.id" v-for="products in menu.products">
-                {{ products.product_name }}
+              <li :key="product.id" v-for="product in menu.products">
+                {{ product.product_name }} |
+                <span class="badge badge-primary"
+                  >{{ product.pivot.quantity }} {{ product.pivot.unite }}</span
+                >
               </li>
             </ul>
           </td>
@@ -49,9 +52,6 @@
               v-if="isAdmin"
               class="btn btn-sm btn-danger"
               @click="deletemenu(menu)"
-              data-toggle="modal"
-              type="button"
-              data-target="#updateModal"
             >
               Supprimer
             </button>

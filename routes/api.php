@@ -28,4 +28,5 @@ Route::resource('/product', ProductController::class);
 Route::prefix('/menu')->group(function () {
     Route::get('/', [MenuController::class, 'index']);
     Route::get('/{id}', [MenuController::class, 'show']);
+    Route::patch('/{id}', [MenuController::class, 'update']);
 });
