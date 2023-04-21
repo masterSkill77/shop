@@ -114,7 +114,7 @@
             <div class="form-group">
               <label for="product-price">Prix</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 id="product-price"
                 placeholder="Prix"
@@ -124,10 +124,10 @@
             <div class="form-group">
               <label for="product-price">Stock</label>
               <input
-                type="text"
+                type="number"
                 class="form-control"
                 id="product-price"
-                placeholder="Prix"
+                placeholder="Stock"
                 v-model="product.stock"
               />
             </div>
