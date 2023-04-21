@@ -33,6 +33,7 @@ class ProductController extends Controller
             $product->product_name = $request->input("product_name");
             $product->product_price = $request->input("product_price");
             $product->id_category = $request->input("id_category");
+            $product->stock = $request->input("stock");
             $product->save();
             $history = new History([
                 'entity_id' => $product->id,
@@ -83,7 +84,8 @@ class ProductController extends Controller
             $data = [
                 'product_name' => $request->input('product_name') ?? $product->product_name,
                 'product_price' => $request->input('product_price') ?? $product->product_price,
-                'id_category' => $request->input('id_category') ?? $product->id_category
+                'id_category' => $request->input('id_category') ?? $product->id_category,
+                'stock' => $request->input('stock') ?? $product->stock
             ];
             $product->update($data);
             $history = new History([

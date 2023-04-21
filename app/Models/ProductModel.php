@@ -11,7 +11,7 @@ class ProductModel extends Model
     use HasFactory, SoftDeletes;
 
     public $table = "product";
-    protected $fillable = ["product_name", "product_price", "id_category"];
+    protected $fillable = ["product_name", "product_price", "id_category", "stock"];
 
     // Retrieve the category instance of the product
     public function category()
