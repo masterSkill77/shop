@@ -11,7 +11,8 @@
         "laravel/framework": "*",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "*"
+        "laravel/ui": "*",
+        "pusher/pusher-php-server": "*"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
