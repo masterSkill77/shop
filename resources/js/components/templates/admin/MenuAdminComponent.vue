@@ -21,6 +21,7 @@
           <th>ID menu</th>
           <th>Nom</th>
           <th>Ingrédients</th>
+          <th>Price</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -37,6 +38,15 @@
                 >
               </li>
             </ul>
+          </td>
+          <td>
+            {{
+              new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "FMG",
+              }).format(menu.price)
+            }}
+            Ar
           </td>
           <td>
             <button
@@ -93,6 +103,17 @@
                 placeholder="menu"
               />
             </div>
+            <div class="form-group">
+              <label for="menu-name">Prix</label>
+              <input
+                type="text"
+                v-model="menu.price"
+                class="form-control"
+                id="menu-name"
+                aria-describedby=""
+                placeholder="menu"
+              />
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -143,6 +164,17 @@
               <input
                 type="text"
                 v-model="newMenu.menu_name"
+                class="form-control"
+                id="menu-name"
+                aria-describedby=""
+                placeholder="menu"
+              />
+            </div>
+            <div class="form-group">
+              <label for="menu-name">Prix</label>
+              <input
+                type="text"
+                v-model="newMenu.price"
                 class="form-control"
                 id="menu-name"
                 aria-describedby=""

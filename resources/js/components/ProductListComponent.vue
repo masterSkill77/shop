@@ -53,7 +53,14 @@
         <tr :key="product.id" v-for="product in productList">
           <td>{{ product.id }}</td>
           <td>{{ product.product_name }}</td>
-          <td>{{ product.product_price }}</td>
+          <td>
+            {{
+              new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "FMG",
+              }).format(product.price)
+            }}
+          </td>
           <td>{{ product.category.category_name }}</td>
           <td>{{ product.stock ?? 0 }}</td>
           <td>

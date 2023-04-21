@@ -3,7 +3,10 @@
     <div
       v-for="(history, index) in histories"
       :key="index"
-      :class="'list-style-type alert ' + returnClass(history.action)"
+      :class="
+        'list-style-type alert animate__animated animate__backInRight ' +
+        returnClass(history.action)
+      "
     >
       <p>
         <strong>{{ getEntityName(history) }}</strong>
@@ -15,7 +18,9 @@
       </p>
       <p>
         <strong>Date :</strong>
-        {{ new Intl.DateTimeFormat("en-US").format(history.created_at) }}
+        {{
+          new Intl.DateTimeFormat("fr-FR").format(new Date(history.created_at))
+        }}
       </p>
       <div v-if="history.entity_type === 'product'">
         <p>
@@ -31,8 +36,8 @@
       </div>
       <div v-else-if="history.entity_type === 'commande'">
         <p>
-          <strong>Menu :</strong>
-          {{ JSON.parse(history.changes).commande_name }}
+          <strong>Commande :</strong>
+          {{ JSON.parse(history.changes).command_name }}
         </p>
       </div>
     </div>
@@ -40,6 +45,8 @@
 </template>
 
 <script>
+import "animate.css";
+
 export default {
   data() {
     return {
@@ -111,6 +118,8 @@ export default {
         return "Changement sur le produit";
       } else if (history.entity_type === "menu") {
         return "Changement sur le menu";
+      } else if (history.entity_type === "commande") {
+        return "Changement sur la commande";
       } else {
         return "Changement sur une entité inconnue";
       }

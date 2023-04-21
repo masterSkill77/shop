@@ -25,11 +25,11 @@ class CommandeController extends Controller
 
         $history = new History([
             'entity_id' => $command->id,
-            'entity_type' => 'menu',
+            'entity_type' => 'commande',
             'author' => null,
             'action' => History::$create,
             'changes' => json_encode([
-                'command_name' => 'Un client a commandé ' . $quantity . " de " . $menu->menu_name
+                'command_name' => 'Un client a commandé ' . $quantity . " quantité(s) de " . $menu->menu_name
             ]),
         ]);
         $history->save();
