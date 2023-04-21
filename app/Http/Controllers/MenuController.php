@@ -60,6 +60,7 @@ class MenuController extends Controller
     {
         $menu = new Menu([
             'menu_name' => $request->input('menu_name'),
+            'menu_price ' => $request->input('menu_price'),
             'user_id' => auth()->user()->id
         ]);
         $menu->save();

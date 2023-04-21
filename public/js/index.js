@@ -2255,9 +2255,9 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(menu.menu_name))]), _vm._v(" "), _c("p", {
+    }, [_vm._v("Name : " + _vm._s(menu.menu_name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("Prix : " + _vm._s(menu.price))]), _vm._v(" "), _c("router-link", {
+    }, [_vm._v("Prix : " + _vm._s(menu.price) + " Ar")]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
       attrs: {
         to: "/menus/".concat(menu.id)
@@ -2384,12 +2384,19 @@ var render = function render() {
     staticClass: "card-title"
   }, [_vm._v(_vm._s(_vm.menu.menu_name) + " by " + _vm._s(_vm.menu.user.name))])]), _vm._v(" "), _c("ul", {
     staticClass: "list-group list-group-flush"
-  }, _vm._l(_vm.menu.products, function (product) {
+  }, [_c("li", {
+    staticClass: "list-group-item"
+  }, [_vm._v("\n      Prix :\n      "), _c("span", {
+    staticClass: "badge badge-pill badge-primary"
+  }, [_vm._v(_vm._s(_vm.menu.price ? new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "FMG"
+  }).format(_vm.menu.price) : 0))])]), _vm._v(" "), _vm._l(_vm.menu.products, function (product) {
     return _c("li", {
       key: product.id,
       staticClass: "list-group-item"
     }, [_vm._v("\n      " + _vm._s(product.product_name) + " : " + _vm._s(product.pivot.quantity) + "\n      " + _vm._s(product.pivot.unite) + "\n    ")]);
-  }), 0), _vm._v(" "), _vm._m(0)], 1);
+  })], 2), _vm._v(" "), _vm._m(0)], 1);
 };
 var staticRenderFns = [function () {
   var _vm = this,

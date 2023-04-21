@@ -63,6 +63,17 @@
       <h5 class="card-title">{{ menu.menu_name }} by {{ menu.user.name }}</h5>
     </div>
     <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        Prix :
+        <span class="badge badge-pill badge-primary">{{
+          menu.price
+            ? new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "FMG",
+              }).format(menu.price)
+            : 0
+        }}</span>
+      </li>
       <li
         v-for="product in menu.products"
         :key="product.id"

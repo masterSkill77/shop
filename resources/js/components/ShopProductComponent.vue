@@ -13,8 +13,8 @@
             alt="Card image cap"
           />
           <div class="card-body">
-            <h5 class="card-title">{{ menu.menu_name }}</h5>
-            <p class="card-text">Prix : {{ menu.price }}</p>
+            <h5 class="card-title">Name : {{ menu.menu_name }}</h5>
+            <p class="card-text">Prix : {{ menu.price }} Ar</p>
             <!-- Button trigger modal -->
             <router-link class="btn btn-primary" :to="`/menus/${menu.id}`"
               >See ingrendients</router-link
