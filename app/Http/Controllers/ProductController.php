@@ -94,8 +94,8 @@ class ProductController extends Controller
                 'author' => auth()->user()->id,
                 'action' => History::$update,
                 'changes' => json_encode([
-                    'product_name' => $product->getOriginal('product_name') . ' est devenu ' . $product->product_name,
-                    'product_price' => $product->getOriginal('product_price') . ' est devenu ' . $product->product_price,
+                    'product_name' => $product->getOriginal('product_name') . ' a été changé',
+                    'product_price' => $product->getOriginal('product_price') . ' a été changé',
                 ]),
             ]);
             $history->save();

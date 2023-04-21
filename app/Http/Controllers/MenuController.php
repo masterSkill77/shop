@@ -41,13 +41,14 @@ class MenuController extends Controller
     {
         $menu = Menu::findOrFail($id);
         $menu->menu_name = $request->input('menu_name');
+        $menu->menu_price = $request->input('menu_price');
         $history = new History([
             'entity_id' => $menu->id,
             'entity_type' => 'menu',
             'author' => auth()->user()->id,
             'action' => History::$update,
             'changes' => json_encode([
-                'menu_name' => $menu->getOriginal('menu_name') . ' est devenu ' . $menu->menu_name,
+                'menu_name' => $menu->getOriginal('menu_name') . ' a été changé',
             ]),
         ]);
         $history->save();
