@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProductController;
@@ -25,10 +26,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [LoginController::class, 'login']);
 Route::resource('/category', CategoryController::class);
 Route::resource('/product', ProductController::class)->middleware(('auth:sanctum'));
-Route::prefix('/menu')->middleware(('auth:sanctum'))->group(function () {
+Route::prefix('/menu')->group(function () {
     Route::get('/', [MenuController::class, 'index']);
     Route::get('/{id}', [MenuController::class, 'show']);
-    Route::patch('/{id}', [MenuController::class, 'update']);
-    Route::delete('/{id}', [MenuController::class, 'destroy']);
-    Route::post('/', [MenuController::class, 'store']);
+    Route::patch('/{id}', [MenuController::class, 'update'])->middleware(('auth:sanctum'));
+    Route::delete('/{id}', [MenuController::class, 'destroy'])->middleware(('auth:sanctum'));
+    Route::post('/', [MenuController::class, 'store'])->middleware(('auth:sanctum'));
 });
+
+Route::get('histories', [HistoryController::class, 'index']);

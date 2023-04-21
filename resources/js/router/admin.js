@@ -23,6 +23,15 @@ const routes = [
       requiresAuth: true,
     },
   },
+  ,
+  {
+    path: "/histories",
+    component: require("../components/templates/admin/Histories.vue").default,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+
   {
     path: "/login",
     name: "login",

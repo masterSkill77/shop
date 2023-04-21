@@ -12,4 +12,9 @@ class History extends Model
     public static $delete = "DELETE";
     use HasFactory;
     protected $fillable = ['entity_type', 'changes', 'entity_id', 'action', 'author'];
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author');
+    }
 }
