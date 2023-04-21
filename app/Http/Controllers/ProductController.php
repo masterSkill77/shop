@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewHistory;
 use App\Models\History;
 use App\Models\ProductModel;
 use Exception;
@@ -43,6 +44,7 @@ class ProductController extends Controller
                 ]),
             ]);
             $history->save();
+            event(new NewHistory($history));
             return response()->json(['data' => $product], 200);
         } catch (Exception $e) {
             throw $e;
@@ -95,6 +97,7 @@ class ProductController extends Controller
                 ]),
             ]);
             $history->save();
+            event(new NewHistory($history));
             return response()->json(['data' => $product], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 403);
@@ -123,6 +126,7 @@ class ProductController extends Controller
                 ]),
             ]);
             $history->save();
+            event(new NewHistory($history));
             return response()->json(['status' => $affectedRow], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 403);

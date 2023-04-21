@@ -44,6 +44,10 @@ export default {
     await this.fetchProducts();
     // Récupérer les menus depuis l'API
     await this.fetchMenus();
+
+    window.Echo.channel(`history`).listen(".new-history", (e) => {
+      this.histories.unshift(e.history);
+    });
   },
   methods: {
     returnClass(action) {

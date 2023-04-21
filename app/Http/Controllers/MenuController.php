@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewHistory;
 use App\Models\History;
 use App\Models\Menu;
 use App\Models\Recette;
@@ -33,6 +34,7 @@ class MenuController extends Controller
         ]);
         $history->save();
         $data->delete();
+        event(new NewHistory($history));
         return response()->json(['status' => $data]);
     }
     public function update(Request $request, int $id)
@@ -50,6 +52,7 @@ class MenuController extends Controller
         ]);
         $history->save();
         $menu->save();
+        event(new NewHistory($history));
         return response()->json($menu);
     }
     public function store(Request $request)
@@ -78,6 +81,7 @@ class MenuController extends Controller
             ]),
         ]);
         $history->save();
+        event(new NewHistory($history));
         return response()->json($menu, Response::HTTP_CREATED);
     }
 }

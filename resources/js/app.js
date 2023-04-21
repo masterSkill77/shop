@@ -38,10 +38,13 @@ import Pusher from "pusher-js";
 
 window.Pusher = Pusher;
 
+const PUSHER_APP_ID = "1587811";
+const PUSHER_APP_KEY = "b2fb97bf44c384a4a97a";
+const PUSHER_APP_SECRET = "2a71c9ffd83fc6f9da2b";
 window.Echo = new Echo({
   broadcaster: "pusher",
-  key: import.meta.env.VITE_PUSHER_APP_KEY,
-  cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+  key: PUSHER_APP_KEY,
+  cluster: "mt1",
   forceTLS: true,
 });
 

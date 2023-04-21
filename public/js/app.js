@@ -2394,6 +2394,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             _context.next = 6;
             return _this.fetchMenus();
           case 6:
+            window.Echo.channel("history").listen(".new-history", function (e) {
+              _this.histories.unshift(e.history);
+            });
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -3817,10 +3821,13 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
 window.Pusher = (pusher_js__WEBPACK_IMPORTED_MODULE_3___default());
+var PUSHER_APP_ID = "1587811";
+var PUSHER_APP_KEY = "b2fb97bf44c384a4a97a";
+var PUSHER_APP_SECRET = "2a71c9ffd83fc6f9da2b";
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
   broadcaster: "pusher",
-  key: /* unsupported import.meta.env.VITE_PUSHER_APP_KEY */ undefined.VITE_PUSHER_APP_KEY,
-  cluster: /* unsupported import.meta.env.VITE_PUSHER_APP_CLUSTER */ undefined.VITE_PUSHER_APP_CLUSTER,
+  key: PUSHER_APP_KEY,
+  cluster: "mt1",
   forceTLS: true
 });
 var app = new Vue({
