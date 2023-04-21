@@ -23,10 +23,16 @@
           {{ JSON.parse(history.changes).product_name }}
         </p>
       </div>
-      <div v-else>
+      <div v-else-if="history.entity_type === 'menu'">
         <p>
           <strong>Menu :</strong>
           {{ JSON.parse(history.changes).menu_name }}
+        </p>
+      </div>
+      <div v-else-if="history.entity_type === 'commande'">
+        <p>
+          <strong>Menu :</strong>
+          {{ JSON.parse(history.changes).commande_name }}
         </p>
       </div>
     </div>
