@@ -122,6 +122,7 @@ class ProductController extends Controller
                     'product_name' => $product->getOriginal('product_name') . ' est supprimé ',
                 ]),
             ]);
+            $history->save();
             return response()->json(['status' => $affectedRow], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 403);

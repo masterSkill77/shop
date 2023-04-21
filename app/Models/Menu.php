@@ -24,4 +24,8 @@ class Menu extends Model
     {
         return $this->hasMany(Recette::class, 'menu_id');
     }
+    public function histories()
+    {
+        return $this->morphMany(History::class, 'entity');
+    }
 }

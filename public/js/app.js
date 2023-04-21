@@ -2383,10 +2383,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       menuList: [],
       categoriesList: [],
       queryText: "",
-      isAdmin: false
+      isAdmin: false,
+      nextId: 1,
+      products: [],
+      allProducts: []
     };
   },
   methods: {
+    addProduct: function addProduct() {
+      this.products.push({
+        id: this.nextId,
+        quantity: 0
+      });
+      this.nextId++;
+    },
     filterByCategory: function filterByCategory(id_category) {
       var _this = this;
       this.fetchData().then(function (data) {
@@ -2410,17 +2420,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     createmenu: function createmenu() {
       var _this3 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.apiUrl + "menu", this.newMenu).then(function (_ref) {
-        var data = _ref.data;
-        return _this3.fetchData();
-      });
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var data;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) switch (_context.prev = _context.next) {
+            case 0:
+              data = JSON.parse(localStorage.getItem("shop_token"));
+              _this3.newMenu.recettes = _this3.products;
+              _context.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().post(_this3.apiUrl + "menu", _this3.newMenu, {
+                headers: {
+                  Authorization: "Bearer " + data.token
+                }
+              }).then(function (_ref) {
+                var data = _ref.data;
+                return _this3.fetchData();
+              });
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }, _callee);
+      }))();
     },
     showFormUpdatemenu: function showFormUpdatemenu(menu) {
       this.menu = menu;
     },
     saveModification: function saveModification() {
       var _this4 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().patch(this.apiUrl + "menu/" + this.menu.id, this.menu).then(function (data) {
+      var data = JSON.parse(localStorage.getItem("shop_token"));
+      axios__WEBPACK_IMPORTED_MODULE_0___default().patch(this.apiUrl + "menu/" + this.menu.id, this.menu, {
+        headers: {
+          Authorization: "Bearer " + data.token
+        }
+      }).then(function (data) {
         if (data) {
           alert("menu modifié avec succès");
           _this4.fetchData();
@@ -2429,41 +2462,126 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     deletemenu: function deletemenu(menu) {
       var _this5 = this;
-      if (confirm("Voulez-vous vraiment supprimer le menu n " + menu.id)) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](this.apiUrl + "menu/" + menu.id).then(function (_ref2) {
-          var data = _ref2.data;
-          if (data.status == 1) {
-            alert("menu supprimé avec succès");
-            _this5.fetchData();
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var data;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              data = JSON.parse(localStorage.getItem("shop_token"));
+              if (!confirm("Voulez-vous vraiment supprimer le menu n " + menu.id)) {
+                _context3.next = 4;
+                break;
+              }
+              _context3.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](_this5.apiUrl + "menu/" + menu.id, {
+                headers: {
+                  Authorization: "Bearer " + data.token
+                }
+              }).then( /*#__PURE__*/function () {
+                var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(_ref2) {
+                  var data;
+                  return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+                    while (1) switch (_context2.prev = _context2.next) {
+                      case 0:
+                        data = _ref2.data;
+                        if (!data.status) {
+                          _context2.next = 5;
+                          break;
+                        }
+                        alert("menu supprimé avec succès");
+                        _context2.next = 5;
+                        return _this5.fetchData();
+                      case 5:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }, _callee2);
+                }));
+                return function (_x) {
+                  return _ref3.apply(this, arguments);
+                };
+              }());
+            case 4:
+            case "end":
+              return _context3.stop();
           }
-        });
-      }
+        }, _callee3);
+      }))();
     },
     fetchData: function fetchData() {
       var _this6 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var data;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this6.apiUrl + "menu/").then(function (_ref3) {
-                var data = _ref3.data;
+              data = JSON.parse(localStorage.getItem("shop_token"));
+              _context4.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this6.apiUrl + "menu/", {
+                headers: {
+                  Authorization: "Bearer " + data.token
+                }
+              }).then(function (_ref4) {
+                var data = _ref4.data;
                 return _this6.menuList = data;
               });
-            case 2:
-              _this6.menu = {};
             case 3:
+              _this6.menu = {};
+            case 4:
             case "end":
-              return _context.stop();
+              return _context4.stop();
           }
-        }, _callee);
+        }, _callee4);
+      }))();
+    },
+    fetchProductData: function fetchProductData() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var data;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              data = JSON.parse(localStorage.getItem("shop_token"));
+              _context5.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this7.apiUrl + "product/", {
+                headers: {
+                  Authorization: "Bearer " + data.token
+                }
+              }).then(function (_ref5) {
+                var data = _ref5.data;
+                return _this7.allProducts = data.data;
+              });
+            case 3:
+              _this7.product = {};
+            case 4:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
       }))();
     }
   },
   mounted: function mounted() {
-    this.fetchData();
-    var data = JSON.parse(localStorage.getItem("shop_token"));
-    this.isAdmin = data.user.role.role_name == "ADMIN";
+    var _this8 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+      var data;
+      return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+        while (1) switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return _this8.fetchData();
+          case 2:
+            _context6.next = 4;
+            return _this8.fetchProductData();
+          case 4:
+            data = JSON.parse(localStorage.getItem("shop_token"));
+            _this8.isAdmin = data.user.role.role_name == "ADMIN";
+          case 6:
+          case "end":
+            return _context6.stop();
+        }
+      }, _callee6);
+    }))();
   }
 });
 
@@ -3288,7 +3406,108 @@ var render = function render() {
         _vm.$set(_vm.newMenu, "menu_name", $event.target.value);
       }
     }
-  })])]), _vm._v(" "), _c("div", {
+  })]), _vm._v(" "), _vm._l(_vm.products, function (product, index) {
+    return _c("div", {
+      key: product.id
+    }, [_c("div", {
+      staticClass: "form-group"
+    }, [_c("label", {
+      attrs: {
+        "for": "product" + product.id
+      }
+    }, [_vm._v("Produit " + _vm._s(index + 1))]), _vm._v(" "), _c("select", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: product.selectedProductId,
+        expression: "product.selectedProductId"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        id: "product" + product.id,
+        name: "product[" + product.id + "]"
+      },
+      on: {
+        change: function change($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+            return o.selected;
+          }).map(function (o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val;
+          });
+          _vm.$set(product, "selectedProductId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        }
+      }
+    }, [_c("option", {
+      attrs: {
+        disabled: "",
+        value: ""
+      }
+    }, [_vm._v("Choisissez un produit")]), _vm._v(" "), _vm._l(_vm.allProducts, function (p) {
+      return _c("option", {
+        key: p.id,
+        domProps: {
+          value: p.id
+        }
+      }, [_vm._v("\n                  " + _vm._s(p.product_name) + "\n                ")]);
+    })], 2), _vm._v("\n              Quantité :\n              "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: product.quantity,
+        expression: "product.quantity"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "number",
+        id: "quantity" + product.id,
+        name: "quantity[" + product.id + "]",
+        min: "0",
+        disabled: !product.selectedProductId
+      },
+      domProps: {
+        value: product.quantity
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(product, "quantity", $event.target.value);
+        }
+      }
+    }), _vm._v("\n              Unité :\n              "), _c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: product.unite,
+        expression: "product.unite"
+      }],
+      staticClass: "form-control",
+      attrs: {
+        type: "text",
+        id: "quantity" + product.id,
+        name: "quantity[" + product.id + "]",
+        min: "0",
+        disabled: !product.selectedProductId
+      },
+      domProps: {
+        value: product.unite
+      },
+      on: {
+        input: function input($event) {
+          if ($event.target.composing) return;
+          _vm.$set(product, "unite", $event.target.value);
+        }
+      }
+    })])]);
+  }), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.addProduct
+    }
+  }, [_vm._v("\n            Ajouter un produit\n          ")])], 2), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
     staticClass: "btn btn-secondary",
