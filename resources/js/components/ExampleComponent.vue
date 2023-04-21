@@ -27,7 +27,7 @@ export default {
   methods: {
     logged(user) {
       this.connected = user;
-      this.$router.push("/");
+      this.$router.back(0);
     },
   },
   mounted() {

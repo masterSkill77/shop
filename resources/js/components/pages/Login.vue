@@ -40,9 +40,9 @@ export default {
           email: this.email,
         })
         .then(({ data }) => {
+          localStorage.setItem("shop_token", JSON.stringify(data));
           this.$emit("connected", data);
           this.$router.back(0);
-          localStorage.setItem("shop_token", JSON.stringify(data));
         })
         .catch(() => {
           alert("Credentials error");

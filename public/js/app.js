@@ -2260,9 +2260,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 email: _this.email
               }).then(function (_ref) {
                 var data = _ref.data;
+                localStorage.setItem("shop_token", JSON.stringify(data));
                 _this.$emit("connected", data);
                 _this.$router.back(0);
-                localStorage.setItem("shop_token", JSON.stringify(data));
               })["catch"](function () {
                 alert("Credentials error");
               });
