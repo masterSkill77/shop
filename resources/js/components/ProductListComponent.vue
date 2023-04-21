@@ -68,9 +68,6 @@
               v-if="isAdmin"
               class="btn btn-sm btn-danger"
               @click="deleteProduct(product)"
-              data-toggle="modal"
-              type="button"
-              data-target="#updateModal"
             >
               Supprimer
             </button>
@@ -273,16 +270,26 @@ export default {
       }
     },
     createProduct() {
+      const data = JSON.parse(localStorage.getItem("shop_token"));
       axios
-        .post(this.apiUrl + "product", this.newProduct)
+        .post(this.apiUrl + "product", this.newProduct, {
+          headers: {
+            Authorization: "Bearer " + data.token,
+          },
+        })
         .then(({ data }) => this.fetchData());
     },
     showFormUpdateProduct(product) {
       this.product = product;
     },
     saveModification() {
+      const data = JSON.parse(localStorage.getItem("shop_token"));
       axios
-        .patch(this.apiUrl + "product/" + this.product.id, this.product)
+        .patch(this.apiUrl + "product/" + this.product.id, this.product, {
+          headers: {
+            Authorization: "Bearer " + data.token,
+          },
+        })
         .then((data) => {
           if (data) {
             alert("Produit modifié avec succès");
@@ -291,23 +298,39 @@ export default {
         });
     },
     deleteProduct(product) {
+      const data = JSON.parse(localStorage.getItem("shop_token"));
       if (
         confirm("Voulez-vous vraiment supprimer le produit n " + product.id)
       ) {
-        axios.delete(this.apiUrl + "product/" + product.id).then(({ data }) => {
-          if (data.status == 1) {
-            alert("Produit supprimé avec succès");
-            this.fetchData();
-          }
-        });
+        axios
+          .delete(this.apiUrl + "product/" + product.id, {
+            headers: {
+              Authorization: "Bearer " + data.token,
+            },
+          })
+          .then(({ data }) => {
+            if (data.status == 1) {
+              alert("Produit supprimé avec succès");
+              this.fetchData();
+            }
+          });
       }
     },
     async fetchData() {
+      const data = JSON.parse(localStorage.getItem("shop_token"));
       await axios
-        .get(this.apiUrl + "category/")
+        .get(this.apiUrl + "category/", {
+          headers: {
+            Authorization: "Bearer " + data.token,
+          },
+        })
         .then(({ data }) => (this.categoriesList = data.data));
       await axios
-        .get(this.apiUrl + "product/")
+        .get(this.apiUrl + "product/", {
+          headers: {
+            Authorization: "Bearer " + data.token,
+          },
+        })
         .then(({ data }) => (this.productList = data.data));
       this.product = {};
     },

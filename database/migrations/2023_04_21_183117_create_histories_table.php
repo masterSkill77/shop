@@ -15,12 +15,14 @@ class CreateHistoriesTable extends Migration
     {
         Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->string('entity');
-            $table->tinyInteger('entity_id');
+            $table->string('entity_type');
+            $table->unsignedInteger('entity_id');
             $table->string('action');
             $table->unsignedBigInteger('author')->nullable();
 
             $table->foreign('author')->references('id')->on('users');
+
+            // $table->morphs('entity');
             $table->timestamps();
         });
     }

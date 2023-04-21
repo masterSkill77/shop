@@ -2130,7 +2130,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     createProduct: function createProduct() {
       var _this3 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.apiUrl + "product", this.newProduct).then(function (_ref) {
+      var data = JSON.parse(localStorage.getItem("shop_token"));
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.apiUrl + "product", this.newProduct, {
+        headers: {
+          Authorization: "Bearer " + data.token
+        }
+      }).then(function (_ref) {
         var data = _ref.data;
         return _this3.fetchData();
       });
@@ -2140,7 +2145,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     saveModification: function saveModification() {
       var _this4 = this;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().patch(this.apiUrl + "product/" + this.product.id, this.product).then(function (data) {
+      var data = JSON.parse(localStorage.getItem("shop_token"));
+      axios__WEBPACK_IMPORTED_MODULE_0___default().patch(this.apiUrl + "product/" + this.product.id, this.product, {
+        headers: {
+          Authorization: "Bearer " + data.token
+        }
+      }).then(function (data) {
         if (data) {
           alert("Produit modifié avec succès");
           _this4.fetchData();
@@ -2149,8 +2159,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     deleteProduct: function deleteProduct(product) {
       var _this5 = this;
+      var data = JSON.parse(localStorage.getItem("shop_token"));
       if (confirm("Voulez-vous vraiment supprimer le produit n " + product.id)) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](this.apiUrl + "product/" + product.id).then(function (_ref2) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](this.apiUrl + "product/" + product.id, {
+          headers: {
+            Authorization: "Bearer " + data.token
+          }
+        }).then(function (_ref2) {
           var data = _ref2.data;
           if (data.status == 1) {
             alert("Produit supprimé avec succès");
@@ -2162,23 +2177,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     fetchData: function fetchData() {
       var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this6.apiUrl + "category/").then(function (_ref3) {
+              data = JSON.parse(localStorage.getItem("shop_token"));
+              _context.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this6.apiUrl + "category/", {
+                headers: {
+                  Authorization: "Bearer " + data.token
+                }
+              }).then(function (_ref3) {
                 var data = _ref3.data;
                 return _this6.categoriesList = data.data;
               });
-            case 2:
-              _context.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this6.apiUrl + "product/").then(function (_ref4) {
+            case 3:
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get(_this6.apiUrl + "product/", {
+                headers: {
+                  Authorization: "Bearer " + data.token
+                }
+              }).then(function (_ref4) {
                 var data = _ref4.data;
                 return _this6.productList = data.data;
               });
-            case 4:
-              _this6.product = {};
             case 5:
+              _this6.product = {};
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -2571,11 +2596,6 @@ var render = function render() {
       }
     }, [_vm._v("\n            Modifier\n          ")]), _vm._v(" "), _vm.isAdmin ? _c("button", {
       staticClass: "btn btn-sm btn-danger",
-      attrs: {
-        "data-toggle": "modal",
-        type: "button",
-        "data-target": "#updateModal"
-      },
       on: {
         click: function click($event) {
           return _vm.deleteProduct(product);

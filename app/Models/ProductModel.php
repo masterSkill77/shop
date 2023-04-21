@@ -17,4 +17,8 @@ class ProductModel extends Model
     {
         return $this->belongsTo(CategoryModel::class, "id_category");
     }
+    public function histories()
+    {
+        return $this->morphMany(History::class, 'entity');
+    }
 }

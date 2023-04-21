@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\ProductModel;
 use Exception;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return response()->json(['data' => ProductModel::with('category')->get()], 200);
+        return response()->json(['data' => ProductModel::with(['category', 'histories'])->get()], 200);
     }
 
     /**
@@ -32,9 +33,20 @@ class ProductController extends Controller
             $product->product_price = $request->input("product_price");
             $product->id_category = $request->input("id_category");
             $product->save();
+            $history = new History([
+                'entity_id' => $product->id,
+                'entity_type' => 'product',
+                'author' => auth()->user()->id,
+                'action' => History::$create,
+                'changes' => json_encode([
+                    'product_name' => $product->getOriginal('product_name') . ' créé '
+                ]),
+            ]);
+            $history->save();
             return response()->json(['data' => $product], 200);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 403);
+            throw $e;
+            return response()->json(['error' => $e], 403);
         }
     }
 
@@ -48,6 +60,7 @@ class ProductController extends Controller
     {
         try {
             $product = ProductModel::with('category')->find($id);
+            $histories = History::where('entity_id', $id)->where('entity_type', 'Product');
             return response()->json(['data' => $product], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 403);
@@ -71,6 +84,17 @@ class ProductController extends Controller
                 'id_category' => $request->input('id_category') ?? $product->id_category
             ];
             $product->update($data);
+            $history = new History([
+                'entity_id' => $product->id,
+                'entity_type' => 'product',
+                'author' => auth()->user()->id,
+                'action' => History::$update,
+                'changes' => json_encode([
+                    'product_name' => $product->getOriginal('product_name') . ' est devenu ' . $product->product_name,
+                    'product_price' => $product->getOriginal('product_price') . ' est devenu ' . $product->product_price,
+                ]),
+            ]);
+            $history->save();
             return response()->json(['data' => $product], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 403);
@@ -87,7 +111,17 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try {
+            $product = ProductModel::findOrFail($id);
             $affectedRow = ProductModel::destroy($id);
+            $history = new History([
+                'entity_id' => $product->id,
+                'entity_type' => 'product',
+                'author' => auth()->user()->id,
+                'action' => History::$delete,
+                'changes' => json_encode([
+                    'product_name' => $product->getOriginal('product_name') . ' est supprimé ',
+                ]),
+            ]);
             return response()->json(['status' => $affectedRow], 200);
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 403);

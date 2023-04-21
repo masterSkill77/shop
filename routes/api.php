@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::resource('/category', CategoryController::class);
-Route::resource('/product', ProductController::class);
+Route::resource('/product', ProductController::class)->middleware(('auth:sanctum'));
 Route::prefix('/menu')->group(function () {
     Route::get('/', [MenuController::class, 'index']);
     Route::get('/{id}', [MenuController::class, 'show']);
