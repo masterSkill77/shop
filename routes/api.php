@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MenuController;
@@ -35,3 +36,4 @@ Route::prefix('/menu')->group(function () {
 });
 
 Route::get('histories', [HistoryController::class, 'index']);
+Route::post('command', [CommandeController::class, 'store']);

@@ -9,8 +9,14 @@
         <strong>{{ getEntityName(history) }}</strong>
       </p>
       <p><strong>Type d'action :</strong> {{ history.action }}</p>
-      <p><strong>Auteur :</strong> {{ history.author.name }}</p>
-      <p><strong>Date :</strong> {{ history.created_at }}</p>
+      <p>
+        <strong>Auteur :</strong>
+        {{ history.author ? history.author.name : "Client" }}
+      </p>
+      <p>
+        <strong>Date :</strong>
+        {{ new Intl.DateTimeFormat("en-US").format(history.created_at) }}
+      </p>
       <div v-if="history.entity_type === 'product'">
         <p>
           <strong>Produit :</strong>

@@ -3571,7 +3571,7 @@ var render = function render() {
     return _c("div", {
       key: index,
       "class": "list-style-type alert " + _vm.returnClass(history.action)
-    }, [_c("p", [_c("strong", [_vm._v(_vm._s(_vm.getEntityName(history)))])]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("Type d'action :")]), _vm._v(" " + _vm._s(history.action))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("Auteur :")]), _vm._v(" " + _vm._s(history.author.name))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("Date :")]), _vm._v(" " + _vm._s(history.created_at))]), _vm._v(" "), history.entity_type === "product" ? _c("div", [_c("p", [_c("strong", [_vm._v("Produit :")]), _vm._v("\n        " + _vm._s(JSON.parse(history.changes).product_name) + "\n      ")])]) : _c("div", [_c("p", [_c("strong", [_vm._v("Menu :")]), _vm._v("\n        " + _vm._s(JSON.parse(history.changes).menu_name) + "\n      ")])])]);
+    }, [_c("p", [_c("strong", [_vm._v(_vm._s(_vm.getEntityName(history)))])]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("Type d'action :")]), _vm._v(" " + _vm._s(history.action))]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("Auteur :")]), _vm._v("\n      " + _vm._s(history.author ? history.author.name : "Client") + "\n    ")]), _vm._v(" "), _c("p", [_c("strong", [_vm._v("Date :")]), _vm._v("\n      " + _vm._s(new Intl.DateTimeFormat("en-US").format(history.created_at)) + "\n    ")]), _vm._v(" "), history.entity_type === "product" ? _c("div", [_c("p", [_c("strong", [_vm._v("Produit :")]), _vm._v("\n        " + _vm._s(JSON.parse(history.changes).product_name) + "\n      ")])]) : _c("div", [_c("p", [_c("strong", [_vm._v("Menu :")]), _vm._v("\n        " + _vm._s(JSON.parse(history.changes).menu_name) + "\n      ")])])]);
   }), 0);
 };
 var staticRenderFns = [];
