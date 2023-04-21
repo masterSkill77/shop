@@ -45,6 +45,7 @@
           <th>Nom</th>
           <th>Prix</th>
           <th>Catégorie</th>
+          <th>Stock</th>
           <th>Action</th>
         </tr>
       </thead>
@@ -54,6 +55,7 @@
           <td>{{ product.product_name }}</td>
           <td>{{ product.product_price }}</td>
           <td>{{ product.category.category_name }}</td>
+          <td>{{ product.stock ?? 0 }}</td>
           <td>
             <button
               class="btn btn-sm btn-warning"
@@ -119,6 +121,16 @@
                 v-model="product.product_price"
               />
             </div>
+            <div class="form-group">
+              <label for="product-price">Stock</label>
+              <input
+                type="text"
+                class="form-control"
+                id="product-price"
+                placeholder="Prix"
+                v-model="product.stock"
+              />
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -173,6 +185,16 @@
                 id="product-name"
                 aria-describedby=""
                 placeholder="Produit"
+              />
+            </div>
+            <div class="form-group">
+              <label for="product-price">Stock</label>
+              <input
+                type="text"
+                class="form-control"
+                id="product-price"
+                placeholder="Prix"
+                v-model="newProduct.stock"
               />
             </div>
             <div class="form-group">

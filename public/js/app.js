@@ -2858,9 +2858,10 @@ var render = function render() {
   }, [_vm._v("\n    Créer un produit\n  ")]) : _vm._e(), _vm._v(" "), _c("table", {
     staticClass: "table table-hover"
   }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.productList, function (product) {
+    var _product$stock;
     return _c("tr", {
       key: product.id
-    }, [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.product_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.product_price))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.category.category_name))]), _vm._v(" "), _c("td", [_c("button", {
+    }, [_c("td", [_vm._v(_vm._s(product.id))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.product_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.product_price))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(product.category.category_name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s((_product$stock = product.stock) !== null && _product$stock !== void 0 ? _product$stock : 0))]), _vm._v(" "), _c("td", [_c("button", {
       staticClass: "btn btn-sm btn-warning",
       attrs: {
         "data-toggle": "modal",
@@ -2955,6 +2956,34 @@ var render = function render() {
         _vm.$set(_vm.product, "product_price", $event.target.value);
       }
     }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "product-price"
+    }
+  }, [_vm._v("Stock")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.product.stock,
+      expression: "product.stock"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "product-price",
+      placeholder: "Prix"
+    },
+    domProps: {
+      value: _vm.product.stock
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.product, "stock", $event.target.value);
+      }
+    }
   })])]), _vm._v(" "), _c("div", {
     staticClass: "modal-footer"
   }, [_c("button", {
@@ -3017,6 +3046,34 @@ var render = function render() {
       input: function input($event) {
         if ($event.target.composing) return;
         _vm.$set(_vm.newProduct, "product_name", $event.target.value);
+      }
+    }
+  })]), _vm._v(" "), _c("div", {
+    staticClass: "form-group"
+  }, [_c("label", {
+    attrs: {
+      "for": "product-price"
+    }
+  }, [_vm._v("Stock")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.newProduct.stock,
+      expression: "newProduct.stock"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "product-price",
+      placeholder: "Prix"
+    },
+    domProps: {
+      value: _vm.newProduct.stock
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.$set(_vm.newProduct, "stock", $event.target.value);
       }
     }
   })]), _vm._v(" "), _c("div", {
@@ -3100,7 +3157,7 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("thead", [_c("tr", [_c("th", [_vm._v("ID produit")]), _vm._v(" "), _c("th", [_vm._v("Nom")]), _vm._v(" "), _c("th", [_vm._v("Prix")]), _vm._v(" "), _c("th", [_vm._v("Catégorie")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
+  return _c("thead", [_c("tr", [_c("th", [_vm._v("ID produit")]), _vm._v(" "), _c("th", [_vm._v("Nom")]), _vm._v(" "), _c("th", [_vm._v("Prix")]), _vm._v(" "), _c("th", [_vm._v("Catégorie")]), _vm._v(" "), _c("th", [_vm._v("Stock")]), _vm._v(" "), _c("th", [_vm._v("Action")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
