@@ -107,7 +107,12 @@ export default {
   },
   methods: {
     proccess: function () {
-      console.log(this.menuId, this.quantity);
+      axios
+        .post(this.apiUrl + "command", {
+          menuId: this.menuId,
+          quantity: this.quantity,
+        })
+        .then((data) => alert("Command en cours de traitement"));
     },
   },
 };

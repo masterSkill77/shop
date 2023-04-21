@@ -2359,7 +2359,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     proccess: function proccess() {
-      console.log(this.menuId, this.quantity);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.apiUrl + "command", {
+        menuId: this.menuId,
+        quantity: this.quantity
+      }).then(function (data) {
+        return alert("Command en cours de traitement");
+      });
     }
   }
 });

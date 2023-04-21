@@ -2175,7 +2175,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     proccess: function proccess() {
-      console.log(this.menuId, this.quantity);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(this.apiUrl + "command", {
+        menuId: this.menuId,
+        quantity: this.quantity
+      }).then(function (data) {
+        return alert("Command en cours de traitement");
+      });
     }
   }
 });
@@ -2252,7 +2257,7 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(menu.menu_name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }), _vm._v(" "), _c("router-link", {
+    }, [_vm._v("Prix : " + _vm._s(menu.price))]), _vm._v(" "), _c("router-link", {
       staticClass: "btn btn-primary",
       attrs: {
         to: "/menus/".concat(menu.id)

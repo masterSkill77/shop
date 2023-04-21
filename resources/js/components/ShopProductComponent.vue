@@ -14,7 +14,7 @@
           />
           <div class="card-body">
             <h5 class="card-title">{{ menu.menu_name }}</h5>
-            <p class="card-text"></p>
+            <p class="card-text">Prix : {{ menu.price }}</p>
             <!-- Button trigger modal -->
             <router-link class="btn btn-primary" :to="`/menus/${menu.id}`"
               >See ingrendients</router-link
