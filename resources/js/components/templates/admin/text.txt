@@ -1,0 +1,25 @@
+BEGIN
+    DECLARE current_product_id INT;
+    DECLARE product_quantity INT;
+    DECLARE current_menu_id INT;
+    DECLARE menu_quantity INT;
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cursor_products CURSOR FOR SELECT product_id, quantity FROM recettes WHERE menu_id = NEW.menu_id;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    
+    SELECT menu_id, quantity INTO current_menu_id, menu_quantity FROM commandes WHERE commandes.id = NEW.id;
+	IF EXISTS (SELECT * FROM recettes WHERE recettes.menu_id = current_menu_id) THEN
+        
+        OPEN cursor_products;
+        loop_products: LOOP
+            FETCH cursor_products INTO current_product_id, product_quantity;
+            IF done THEN
+                LEAVE loop_products;
+            END IF;
+            SET product_quantity = product_quantity * menu_quantity;
+            UPDATE product SET product.stock = product.stock - product_quantity WHERE product.id = current_product_id;
+        END LOOP;
+        CLOSE cursor_products;
+    END IF;
+END

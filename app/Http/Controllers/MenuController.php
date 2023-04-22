@@ -41,7 +41,7 @@ class MenuController extends Controller
     {
         $menu = Menu::findOrFail($id);
         $menu->menu_name = $request->input('menu_name');
-        $menu->menu_price = $request->input('menu_price');
+        $menu->price = $request->input('price');
         $history = new History([
             'entity_id' => $menu->id,
             'entity_type' => 'menu',
@@ -60,7 +60,7 @@ class MenuController extends Controller
     {
         $menu = new Menu([
             'menu_name' => $request->input('menu_name'),
-            'menu_price ' => $request->input('menu_price'),
+            'price ' => $request->input('price'),
             'user_id' => auth()->user()->id
         ]);
         $menu->save();

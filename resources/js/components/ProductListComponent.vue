@@ -133,7 +133,7 @@
               <input
                 type="number"
                 class="form-control"
-                id="product-price"
+                id="product-stock"
                 placeholder="Stock"
                 v-model="product.stock"
               />

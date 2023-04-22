@@ -3002,7 +3002,7 @@ var render = function render() {
     staticClass: "form-control",
     attrs: {
       type: "number",
-      id: "product-price",
+      id: "product-stock",
       placeholder: "Stock"
     },
     domProps: {
