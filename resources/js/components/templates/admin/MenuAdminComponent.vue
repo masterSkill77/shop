@@ -173,12 +173,12 @@
             <div class="form-group">
               <label for="menu-name">Prix</label>
               <input
-                type="text"
+                type="number"
                 v-model="newMenu.price"
                 class="form-control"
                 id="menu-name"
                 aria-describedby=""
-                placeholder="menu"
+                placeholder="Price"
               />
             </div>
             <div v-for="(product, index) in products" :key="product.id">

@@ -3825,10 +3825,10 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      type: "text",
+      type: "number",
       id: "menu-name",
       "aria-describedby": "",
-      placeholder: "menu"
+      placeholder: "Price"
     },
     domProps: {
       value: _vm.newMenu.price
