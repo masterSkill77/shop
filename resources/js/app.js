@@ -33,6 +33,15 @@ Vue.use(VueRouter);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import Notifications from "vue-notification";
+
+/*
+or for SSR:
+import Notifications from 'vue-notification/dist/ssr.js'
+*/
+
+Vue.use(Notifications);
+
 import Echo from "laravel-echo";
 import Pusher from "pusher-js";
 

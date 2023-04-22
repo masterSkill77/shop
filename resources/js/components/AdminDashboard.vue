@@ -1,6 +1,7 @@
 <template>
   <div>
     <AdminMenu />
+    <notifications />
     <router-view></router-view>
   </div>
 </template>

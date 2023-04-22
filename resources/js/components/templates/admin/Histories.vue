@@ -63,8 +63,14 @@ export default {
     await this.fetchProducts();
     // Récupérer les menus depuis l'API
     await this.fetchMenus();
-
     window.Echo.channel(`history`).listen(".new-history", (e) => {
+      this.$notify({
+        type: "success",
+        title: "Notification",
+        text: "Il y a une nouvelle notification",
+        duration: 3000,
+        speed: 2000,
+      });
       this.histories.unshift(e.history);
     });
   },
